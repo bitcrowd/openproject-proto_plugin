@@ -35,49 +35,44 @@
  * This will allow your IDE to pick up the angular project and provide import assistance and so on.
  */
 
-import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {KittenComponent} from "core-app/modules/plugins/linked/openproject-proto_plugin/kitten-component/kitten.component";
-import {HookService} from "core-app/modules/plugins/hook-service";
+import {KittenComponent} from "core-app/features/plugins/linked/openproject-proto_plugin/kitten-component/kitten.component";
+import {HookService} from "core-app/features/plugins/hook-service";
 
 import './global_scripts'
-import {KITTEN_ROUTES} from 'core-app/modules/plugins/linked/openproject-proto_plugin/kitten.routes';
+import {KITTEN_ROUTES} from 'core-app/features/plugins/linked/openproject-proto_plugin/kitten.routes';
 import {UIRouterModule} from '@uirouter/angular';
-import {KittenPageComponent} from 'core-app/modules/plugins/linked/openproject-proto_plugin/kitten-page/kitten-page.component';
+import {KittenPageComponent} from 'core-app/features/plugins/linked/openproject-proto_plugin/kitten-page/kitten-page.component';
 
 export function initializeProtoPlugin(injector:Injector) {
-  return () => {
-    const hookService = injector.get(HookService);
 
-    // Explicitly bootstrap the kitten component in the DOM if it is found
-    // Angular would otherwise only bootstrap the global entry point bootstrap from the core
-    // preventing us from using components like this kitten component
-    hookService.register('openProjectAngularBootstrap', () => {
-      return [
-        { selector: 'kitten-component', cls: KittenComponent }
-      ];
-    });
-  };
+  // Explicitly bootstrap the kitten component in the DOM if it is found
+  // Angular would otherwise only bootstrap the global entry point bootstrap from the core
+  // preventing us from using components like this kitten component
+  const hookService = injector.get(HookService);
+
+  hookService.register('openProjectAngularBootstrap', () => [
+    { selector: 'kitten', cls: KittenComponent },
+  ]);
 }
+
 
 @NgModule({
   imports: [
     CommonModule,
     UIRouterModule.forChild({ states: KITTEN_ROUTES })
   ],
-  providers: [
-    // This initializer gets called when the Angular frontend is being loaded by the core
-    // use it to hook up global listeners or bootstrap components
-    { provide: APP_INITIALIZER, useFactory: initializeProtoPlugin, deps: [Injector], multi: true },
-  ],
+  providers: [],
   declarations: [
     // Declare the component for angular to use
     KittenComponent,
     KittenPageComponent,
   ],
 })
+
 export class PluginModule {
+  constructor(injector:Injector) {
+    initializeProtoPlugin(injector);
+  }
 }
-
-
-
