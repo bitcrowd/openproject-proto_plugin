@@ -44,8 +44,31 @@ import './global_scripts'
 import {KITTEN_ROUTES} from 'core-app/features/plugins/linked/openproject-proto_plugin/kitten.routes';
 import {UIRouterModule} from '@uirouter/angular';
 import {KittenPageComponent} from 'core-app/features/plugins/linked/openproject-proto_plugin/kitten-page/kitten-page.component';
+import { OpenProjectPluginContext } from '../../plugin-context';
 
 export function initializeProtoPlugin(injector:Injector) {
+  window.OpenProject.getPluginContext().then((pluginContext:OpenProjectPluginContext) => {
+
+    pluginContext.hooks.workPackageTableContextMenu((params:any) => ({
+      key: 'create_kittens',
+      icon: 'icon-projects',
+      link: 'createKittens',
+      indexBy(actions:any) {
+        const index = _.findIndex(actions, { link: 'logTime' });
+        return index !== -1 ? index + 1 : actions.length;
+      },
+      text: I18n.t('js.button_create_kittens'),
+    }));
+
+    pluginContext.hooks.workPackageBulkContextMenu((params:any) => ({
+      key: 'create_kittens',
+      icon: 'icon-projects',
+      link: 'createKittens',
+      href: '/angular_kittens',
+      text: I18n.t('js.button_create_kittens'),
+    }));
+
+  });
 
   // Explicitly bootstrap the kitten component in the DOM if it is found
   // Angular would otherwise only bootstrap the global entry point bootstrap from the core
