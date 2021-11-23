@@ -3,7 +3,7 @@ on: push
 
 jobs:
   setup-tests:
-    uses: bitcrowd/openproject-proto_plugin/.github/workflows/workflow-setup-tests.yml
+    uses: bitcrowd/openproject-proto_plugin/.github/workflows/workflow-setup-tests.yml@v1
   angular-tests:
     name: Angular-Units
     runs-on: ubuntu-latest

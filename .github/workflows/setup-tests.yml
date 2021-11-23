@@ -1,6 +1,6 @@
 name: Setup Tests
 on:
-  workflow-call:
+  workflow_call:
 
 jobs:
   units:
