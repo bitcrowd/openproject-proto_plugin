@@ -2,6 +2,8 @@ name: test
 on: push
 
 jobs:
+  setup-tests:
+    uses: bitcrowd/openproject-proto_plugin/.github/workflows/workflow-setup-tests.yml
   angular-tests:
     name: Angular-Units
     runs-on: ubuntu-latest
@@ -10,8 +12,6 @@ jobs:
       CI_RETRY_COUNT: 3
       LOCAL_DEV_CHECK: 1
     steps:
-      - name: setup
-        uses: bitcrowd/openproject-proto_plugin/.github/workflows/workflow-setup-tests.yml
       - name: build
         run: |
           docker-compose -f docker/ci/docker-compose.yml build --pull ci
