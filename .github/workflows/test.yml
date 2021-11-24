@@ -23,6 +23,7 @@ jobs:
         with:
           pluginName: openproject-proto_plugin
           openprojectVersion: v12.0.2
+          testSteps: "setup-tests run-rspec-unit"
   # rspec-features-tests:
   #   uses: bitcrowd/openproject-plugin_test_action/.github/workflows/rspec-features-tests.yml@main
   #   with:
