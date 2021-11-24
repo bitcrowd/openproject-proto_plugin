@@ -2,10 +2,24 @@ name: test
 on: push
 
 jobs:
-  # angular-unit-tests:
-  #   uses: bitcrowd/openproject-plugin_test_action/.github/workflows/angular-unit-tests.yml@main
-  #   with:
-  #     plugin_name: openproject-proto_plugin
+  angular-unit-tests:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/cache
+          key: ${{ runner.os }}-core-tests-units-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-core-tests-units-
+            ${{ runner.os }}-core-tests-
+      - name: test
+        uses: tessi/openproject-plugin_tests@main
+        with:
+          pluginName: openproject-proto_plugin
+          openprojectVersion: v12.0.2
+          testSteps: "run-angular-unit run-frontend-lint"
   rspec-unit-tests:
     runs-on: "ubuntu-latest"
     steps:
@@ -23,8 +37,22 @@ jobs:
         with:
           pluginName: openproject-proto_plugin
           openprojectVersion: v12.0.2
-          testSteps: "setup-tests run-rspec-unit"
-  # rspec-features-tests:
-  #   uses: bitcrowd/openproject-plugin_test_action/.github/workflows/rspec-features-tests.yml@main
-  #   with:
-  #     plugin_name: openproject-proto_plugin
+          testSteps: "run-rspec-unit"
+  rspec-feature-tests:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/cache
+          key: ${{ runner.os }}-core-tests-units-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-core-tests-units-
+            ${{ runner.os }}-core-tests-
+      - name: test
+        uses: tessi/openproject-plugin_tests@main
+        with:
+          pluginName: openproject-proto_plugin
+          openprojectVersion: v12.0.2
+          testSteps: "run-rspec-features"
