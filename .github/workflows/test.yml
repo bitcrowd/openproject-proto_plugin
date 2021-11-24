@@ -21,7 +21,8 @@ jobs:
       - name: test
         uses: tessi/openproject-plugin_tests@main
         with:
-          plugin_name: openproject-proto_plugin
+          pluginName: openproject-proto_plugin
+          openprojectVersion: v12.0.2
   # rspec-features-tests:
   #   uses: bitcrowd/openproject-plugin_test_action/.github/workflows/rspec-features-tests.yml@main
   #   with:
