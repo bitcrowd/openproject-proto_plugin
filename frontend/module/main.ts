@@ -59,6 +59,15 @@ export function initializeProtoPlugin(injector:Injector) {
       },
       text: I18n.t('js.button_create_kittens'),
     }));
+
+    pluginContext.hooks.workPackageBulkContextMenu((params:any) => ({
+      key: 'create_kittens',
+      icon: 'icon-projects',
+      link: 'createKittens',
+      href: '/angular_kittens',
+      text: I18n.t('js.button_create_kittens'),
+    }));
+
   });
 
   return () => {
