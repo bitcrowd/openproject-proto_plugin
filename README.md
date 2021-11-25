@@ -144,12 +144,6 @@ A special `.travis.yml` and `Gemfile.plugins` are included which allow you to ha
 the specs for your plugin along with the core specs. This is a good way to test if your plugin
 works properly in conjunction with the core.
 
-**Docker CI**
-
-A `docker/ci` folder exists to automate the testing of both angular unit and rspec unit/features. Additionally, a `lint.yml` and `test.yml` file exists in .github/workflows to use Github Actions.
-
-For more documentation, see `docker/ci/DOCKER.MD`.
-
 ## Seeders
 
 The relevant files for the seeders are:
