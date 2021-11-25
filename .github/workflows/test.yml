@@ -15,7 +15,7 @@ jobs:
             ${{ runner.os }}-core-tests-units-
             ${{ runner.os }}-core-tests-
       - name: test
-        uses: bitcrowd/openproject-plugin_test_action@feat/try-to-use-docker-from-this-repo
+        uses: bitcrowd/openproject-plugin_test_action@feat/add-docker-files-to-this-repo
         with:
           pluginName: openproject-proto_plugin
           openprojectVersion: v12.0.2
@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-core-tests-units-
             ${{ runner.os }}-core-tests-
       - name: test
-        uses: bitcrowd/openproject-plugin_test_action@feat/try-to-use-docker-from-this-repo
+        uses: bitcrowd/openproject-plugin_test_action@feat/add-docker-files-to-this-repo
         with:
           pluginName: openproject-proto_plugin
           openprojectVersion: v12.0.2
@@ -51,7 +51,7 @@ jobs:
             ${{ runner.os }}-core-tests-units-
             ${{ runner.os }}-core-tests-
       - name: test
-        uses: bitcrowd/openproject-plugin_test_action@feat/try-to-use-docker-from-this-repo
+        uses: bitcrowd/openproject-plugin_test_action@feat/add-docker-files-to-this-repo
         with:
           pluginName: openproject-proto_plugin
           openprojectVersion: v12.0.2
