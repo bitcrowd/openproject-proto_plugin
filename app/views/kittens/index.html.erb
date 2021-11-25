@@ -19,7 +19,7 @@
     These are the kittens:
   </p>
   <% @kittens.each do |kitten| %>
-    <%= tag 'kitten-component', data: { 'kitten-name': kitten.name } %>
+    <%= tag.kitten(data: { 'kitten-name': kitten.name }) %>
   <% end %>
 <% end %>
 

@@ -35,7 +35,7 @@
  * This will allow your IDE to pick up the angular project and provide import assistance and so on.
  */
 
-import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {KittenComponent} from "core-app/features/plugins/linked/openproject-proto_plugin/kitten-component/kitten.component";
 import {HookService} from "core-app/features/plugins/hook-service";
@@ -70,18 +70,15 @@ export function initializeProtoPlugin(injector:Injector) {
 
   });
 
-  return () => {
-    const hookService = injector.get(HookService);
+  
+  // Explicitly bootstrap the kitten component in the DOM if it is found
+  // Angular would otherwise only bootstrap the global entry point bootstrap from the core
+  // preventing us from using components like this kitten component
+  const hookService = injector.get(HookService);
 
-    // Explicitly bootstrap the kitten component in the DOM if it is found
-    // Angular would otherwise only bootstrap the global entry point bootstrap from the core
-    // preventing us from using components like this kitten component
-    hookService.register('openProjectAngularBootstrap', () => {
-      return [
-        { selector: 'kitten-component', cls: KittenComponent }
-      ];
-    });
-  };
+  hookService.register('openProjectAngularBootstrap', () => [
+    { selector: 'kitten', cls: KittenComponent },
+  ]);
 }
 
 
